@@ -27,7 +27,7 @@ const DonacionesPage = () => {
   const fetchDonaciones = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/donaciones');
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donaciones`);
       const data = await response.json();
       const content = data.content || data;
       setDonaciones(content);
@@ -78,7 +78,7 @@ const DonacionesPage = () => {
     try {
       if (editandoId) {
         // Actualizar existente
-        await fetch(`http://localhost:3001/api/donaciones/${editandoId}`, {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donaciones/${editandoId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(donacionData)
@@ -86,7 +86,7 @@ const DonacionesPage = () => {
         mostrarToast('success', '¡Donación actualizada con éxito!', 'Los cambios se guardaron correctamente.');
       } else {
         // Crear nueva
-        const response = await fetch('http://localhost:3001/api/donaciones', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donaciones`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(donacionData)
@@ -146,7 +146,7 @@ const DonacionesPage = () => {
   const eliminarDonacion = async (id) => {
     if(window.confirm("¿Estás seguro de eliminar esta donación?")) {
       try {
-        await fetch(`http://localhost:3001/api/donaciones/${id}`, {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donaciones/${id}`, {
           method: 'DELETE'
         });
         mostrarToast('success', 'Donación eliminada correctamente.');

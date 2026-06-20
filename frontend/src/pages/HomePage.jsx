@@ -13,10 +13,10 @@ const HomePage = () => {
     const fetchAllData = async () => {
       try {
         const [resDonaciones, resInventario, resLogistica, resNecesidades] = await Promise.all([
-          fetch('http://localhost:3001/api/donaciones').catch(() => ({ ok: false })),
-          fetch('http://localhost:3001/api/inventario').catch(() => ({ ok: false })),
-          fetch('http://localhost:3001/api/logistica').catch(() => ({ ok: false })),
-          fetch('http://localhost:3001/api/necesidades').catch(() => ({ ok: false }))
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donaciones`).catch(() => ({ ok: false })),
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/inventario`).catch(() => ({ ok: false })),
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/logistica`).catch(() => ({ ok: false })),
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/necesidades`).catch(() => ({ ok: false }))
         ]);
 
         const rawDonaciones = resDonaciones.ok ? await resDonaciones.json() : [];
